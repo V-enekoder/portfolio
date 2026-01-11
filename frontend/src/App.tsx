@@ -1,7 +1,3 @@
-import React from "react";
-
-// --- Subcomponentes Rápidos ---
-
 const Navbar = () => (
   <nav className="flex justify-between items-center px-10 py-6 text-[10px] font-bold uppercase tracking-widest border-b border-gray-100">
     <div className="flex gap-6">
@@ -26,7 +22,7 @@ const Hero = () => (
       <img
         src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop"
         alt="Laptop Work"
-        className="w-full h-[500px] object-cover"
+        className="w-full h-125 object-cover"
       />
     </div>
 
@@ -84,7 +80,7 @@ const Services = () => (
 
 const Footer = () => (
   <footer className="px-10 py-20 bg-white flex flex-col items-center">
-    <div className="w-full h-[400px] bg-gradient-to-br from-purple-900 via-blue-900 to-black rounded-3xl mb-20 flex flex-col items-center justify-center text-white p-10 text-center">
+    <div className="w-full h-100 bg-linear-to-br from-purple-900 via-blue-900 to-black rounded-3xl mb-20 flex flex-col items-center justify-center text-white p-10 text-center">
       <p className="text-[10px] uppercase tracking-widest mb-6">
         Próximo proyecto
       </p>
@@ -113,7 +109,7 @@ const Gallery = () => (
     {[1, 2, 3, 4, 5].map((i) => (
       <div
         key={i}
-        className="min-w-[250px] h-[350px] bg-gray-100 rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition-all"
+        className="min-w-62.5 h-87.5 bg-gray-100 rounded-2xl overflow-hidden grayscale hover:grayscale-0 transition-all"
       >
         <img
           src={`https://picsum.photos/seed/${i + 10}/400/600`}
