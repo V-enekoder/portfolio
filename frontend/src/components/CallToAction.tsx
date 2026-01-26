@@ -1,5 +1,3 @@
-import React from "react";
-
 const CallToAction = () => {
   return (
     <section style={{ textAlign: "center", padding: "5rem 1rem" }}>

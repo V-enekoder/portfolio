@@ -1,5 +1,4 @@
-import React from "react";
-import "./TechStack.css"; // Tendrás que crear este archivo CSS
+import "./TechStack.css";
 
 const techs = [
   { name: "Go", img: "../assets/go-logo.png" },
