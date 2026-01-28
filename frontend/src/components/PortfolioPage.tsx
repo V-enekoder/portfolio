@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-// 1. DATOS SIMULADOS (Aquí es donde en el futuro harás el fetch a tu BD)
 const projectsData = [
   {
     id: 1,
     title: "COLOR WARS",
     category: "Juegos",
     tags: ["Juego de mesa", "IA", "Abstracto"],
-    image: "https://i.imgur.com/GzYk3gO.png", // He puesto un placeholder, ¡cambia esto por tu captura real!
+    image: "../assets/color-wars.png",
     description:
       "Un juego de estrategia inspirado en 'Chain Reaction'. El objetivo es dominar el tablero eliminando los átomos del oponente mediante reacciones en cadena explosivas.",
     techDetails: {
