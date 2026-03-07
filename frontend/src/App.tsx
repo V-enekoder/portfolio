@@ -176,7 +176,6 @@ export default function App() {
           <Route path="/servicios" element={<ServicesPage />} />
           <Route path="/sobre-mi" element={<AboutPage />} />
 
-          {/* 3. NUEVA RUTA */}
           <Route path="/proyectos" element={<PortfolioPage />} />
         </Routes>
       </div>

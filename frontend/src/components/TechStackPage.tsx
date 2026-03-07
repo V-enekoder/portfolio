@@ -1,61 +1,40 @@
-// src/components/TechStackPage.tsx
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const techItems = [
-  {
-    name: "Go",
-    color: "text-blue-400",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
-  },
-  {
-    name: "JavaScript",
-    color: "text-yellow-400",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-  },
-  {
-    name: "Python",
-    color: "text-blue-500",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-  },
-  {
-    name: "Linux",
-    color: "text-black",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-  },
-  {
-    name: "Ubuntu",
-    color: "text-orange-500",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg",
-  },
-  {
-    name: "Debian",
-    color: "text-red-500",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/debian/debian-original.svg",
-  },
-  {
-    name: "PostgreSQL",
-    color: "text-blue-600",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-  },
-  {
-    name: "Git",
-    color: "text-red-500",
-    icon:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-  },
-];
+interface TechItem {
+  id: number;
+  name: string;
+  color: string;
+  icon: string;
+}
 
 const TechStackPage = () => {
+  const [techItems, setTechItems] = useState<TechItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/tech")
+      .then((res) => res.json())
+      .then((data) => {
+        setTechItems(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error cargando stack:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center font-bold">
+        CARGANDO STACK...
+      </div>
+    );
+  }
+
   return (
     <section className="min-h-screen bg-white p-10 flex flex-col items-center">
-      {/* Encabezado con Botón de regreso */}
       <div className="w-full max-w-6xl flex justify-between items-center mb-16">
         <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
           Mi Stack Tecnológico
@@ -68,11 +47,10 @@ const TechStackPage = () => {
         </Link>
       </div>
 
-      {/* Grid de Tecnologías */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-10 w-full max-w-6xl mb-20">
         {techItems.map((tech) => (
           <div
-            key={tech.name}
+            key={tech.id}
             className="flex flex-col items-center p-8 bg-gray-50 rounded-3xl hover:shadow-xl transition-shadow duration-300"
           >
             <img
@@ -85,7 +63,6 @@ const TechStackPage = () => {
         ))}
       </div>
 
-      {/* Sección inferior (similar a tu diseño) */}
       <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8 items-center bg-black text-white p-10 rounded-3xl">
         <div>
           <h3 className="text-3xl font-bold mb-4">

@@ -17,7 +17,7 @@ func main() {
 	}
 
 	// 2. Migraciones
-	db.AutoMigrate(&Service{}, &Project{})
+	db.AutoMigrate(&Service{}, &Project{}, &Tech{}, &About{})
 
 	// 3. Ejecutar Seeder
 	SeedData(db)
@@ -25,12 +25,14 @@ func main() {
 	// 4. Configurar Servidor
 	r := gin.Default()
 	r.Use(cors.Default())
-
+	r.Static("/assets", "./assets")
 	// 5. Definir Rutas usando los handlers
 	api := r.Group("/api")
 	{
 		api.GET("/services", GetServices(db))
 		api.GET("/projects", GetProjects(db))
+		api.GET("/tech", GetTechStack(db))
+		api.GET("/about", GetAbout(db))
 	}
 	r.GET("/health", HealthCheck)
 
