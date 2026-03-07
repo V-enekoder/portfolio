@@ -22,7 +22,11 @@ func main() {
 	}
 
 	// 3. Conectar a Postgres (Supabase)
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.New(postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true, //
+	}), &gorm.Config{})
+
 	if err != nil {
 		log.Fatal("Error conectando a Supabase:", err)
 	}
