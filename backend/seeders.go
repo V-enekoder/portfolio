@@ -75,7 +75,7 @@ func SeedData(db *gorm.DB) {
 				Title:       "COLOR WARS",
 				Category:    "Juegos",
 				Tags:        "Juego de mesa,IA,Abstracto",
-				Image:       "http://localhost:8080/assets/colorwars.png",
+				Image:       "assets/colorwars.png",
 				Description: "Un juego de estrategia inspirado en 'Chain Reaction'...",
 				Frontend:    "React, Tailwind CSS",
 				Logic:       "Algoritmo Minimax para la IA",

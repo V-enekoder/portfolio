@@ -16,13 +16,14 @@ interface AboutData {
 const AboutPage = () => {
   const [data, setData] = useState<AboutData | null>(null);
 
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    fetch("http://localhost:8080/api/about")
+    fetch(`${API_URL}/api/about`)
       .then((res) => res.json())
       .then((data) => setData(data))
-      .catch((err) => console.error("Error cargando About:", err));
+      .catch((err) => console.error(err));
   }, []);
-
   if (!data) {
     return (
       <div className="min-h-screen flex items-center justify-center font-bold">

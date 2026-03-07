@@ -2,31 +2,37 @@ package main
 
 import (
 	"log"
+	"os" // Importante para leer variables de entorno
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres" // Cambiado de sqlite a postgres
 	"gorm.io/gorm"
 )
 
 func main() {
-	// 1. Conexión a DB
-	db, err := gorm.Open(sqlite.Open("portfolio.db"), &gorm.Config{})
-	if err != nil {
-		log.Fatal("Error al conectar DB:", err)
+	godotenv.Load()
+	dsn := os.Getenv("DATABASE_URL")
+	if dsn == "" {
+		dsn = "host=localhost user=postgres password=... dbname=postgres port=5432 sslmode=disable"
 	}
 
-	// 2. Migraciones
-	db.AutoMigrate(&Service{}, &Project{}, &Tech{}, &About{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("Error conectando a Supabase:", err)
+	}
 
-	// 3. Ejecutar Seeder
+	// 2. Migraciones y Seeders (igual que antes)
+	db.AutoMigrate(&Service{}, &Project{}, &Tech{}, &About{})
 	SeedData(db)
 
-	// 4. Configurar Servidor
 	r := gin.Default()
+
+	// 3. CORS PRO: En producción deberías poner la URL de tu frontend
 	r.Use(cors.Default())
+
 	r.Static("/assets", "./assets")
-	// 5. Definir Rutas usando los handlers
+
 	api := r.Group("/api")
 	{
 		api.GET("/services", GetServices(db))
@@ -34,9 +40,11 @@ func main() {
 		api.GET("/tech", GetTechStack(db))
 		api.GET("/about", GetAbout(db))
 	}
-	r.GET("/health", HealthCheck)
 
-	// 6. Iniciar
-	log.Println("🚀 Servidor en http://localhost:8080")
-	r.Run(":8080")
+	// 4. PUERTO DINÁMICO (Render asigna uno automáticamente)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	r.Run(":" + port)
 }
